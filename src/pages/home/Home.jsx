@@ -40,7 +40,7 @@ const Home = () => {
         <>
             <Hero>
                 <Input 
-                    classInput='border-2 border-black h-10 w-full'
+                    classInput='border-2 border-black h-10 w-full rounded shadow-lg'
                     divStyle={{
                         width: '80%'
                     }}
