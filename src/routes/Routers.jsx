@@ -1,6 +1,7 @@
-import { BrowserRouter, Route, createBrowserRouter } from 'react-router-dom'
-import AuthLayout from '@/layouts/AuthLayout'
-import Login from '@/authentication/Login'
+import { BrowserRouter, Route, createBrowserRouter } from "react-router-dom";
+import AuthLayout from "@layouts/auth/AuthLayout.jsx";
+import Login from "@pages/auth/Login";
+import Registre from "@pages/auth/Registre";
 import HomeLayout from '@/layouts/HomeLayout'
 import Home from '@/pages/home/Home'
 
@@ -11,6 +12,10 @@ const Routers = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+            },
+            {
+                path: "/register",
+                element: <Registre />,
             },
         ],
     },

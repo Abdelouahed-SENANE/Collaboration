@@ -37,7 +37,7 @@ const Navbar = () => {
                                 <button>Login</button>
                             </Link>
                             <Link
-                                to="register"
+                                to={"register"}
                                 className="text-primary border-2 border-primary px-6 py-2 rounded-md"
                             >
                                 <button>Register</button>
