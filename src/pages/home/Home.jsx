@@ -2,9 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { getListings } from '@data/listing/listingData'
 import Hero from '@/components/home/Hero'
 import Input from '@components/ui/Input'
+import Card from '@components/ui/card/Card'
+import CardWrapper from '@components/ui/card/CardWrapper'
 
 const Home = () => {
     const [listings, setListings] = useState([])
+    const [links, setLinks] = useState('1')
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -15,7 +18,8 @@ const Home = () => {
     const fetchListingsList = (query) => {
         const fetch = async () => {
             const listingData = await getListings(query)
-            setListings(listingData)
+            setListings(listingData.data)
+            setLinks(listingData.links)
         }
         
         fetch()
@@ -61,11 +65,11 @@ const Home = () => {
                     {error}
                 </p>
             ) : (
-                <ul>
-                    {listings.map((listing) => (
-                        <li key={listing.id}>{listing.title}</li>
+                <CardWrapper links={links}>
+                    {listings.map(({ id, title }) => (
+                        <Card key={id} title={title} />
                     ))}
-                </ul>
+                </CardWrapper>
             )}
         </>
     )

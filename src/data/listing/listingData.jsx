@@ -1,9 +1,12 @@
 import { fetchListings } from './listingService'
 
-export const getListings = async (query = '') => {
+export const getListings = async (page = '1', query = '') => {
     try {
-        const response = await fetchListings(query)
-        return response.data.listings
+        const response = await fetchListings(page, query)
+        return {
+            'data': response.data.listings.data,
+            'links': response.data.listings.links
+        }
     } catch (error) {
         throw error
     }
