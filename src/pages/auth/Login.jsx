@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import Form from "@components/ui/Form";
 import Input from "@components/ui/Input";
 import Button from "@components/ui/button/Button";
+import { useAuth } from "@contexts/AuthContext";
+import instance from "../../services/api/api";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const { setToken, token } = useAuth();
+    const navigate = useNavigate();
+
+    // const handleLogin = () => {
+    //     setToken("new token")
+    // };
+
+    const [errors, setErrors] = useState({
+        email: "",
+        password: "",
+    });
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -16,9 +30,37 @@ const Login = () => {
             [name]: value,
         });
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+            const resp = await instance.post('/login', formData);
+            // If login is successful, set token and navigate to profile page
+            if (resp.status === 200) {
+                setToken(resp.data.token); // Assuming your API returns a token upon successful login
+                navigate('/profile');
+            }
+        } catch (error) {
+            if (error.response) {
+                // If the response status is 422, set error messages from the server
+                if (error.response.status === 422) {
+                    const serverErrors = error.response.data.errors;
+                    const formattedErrors = {};
+                    for (const key in serverErrors) {
+                        formattedErrors[key] = serverErrors[key][0]; // Assuming only one error message per field
+                    }
+                    setErrors(formattedErrors);
+                } else if (error.response.status === 401) {
+                    // Handle 401 Unauthorized error (invalid credentials)
+                    setErrors({ ...errors, email: "Invalid email or password" });
+                } else {
+                    // Handle other server errors here
+                    console.error("Server Error:", error.response.data);
+                }
+            } else {
+                // Handle network errors
+                console.error("Network Error:", error.message);
+            }
+        }
     };
 
     return (
