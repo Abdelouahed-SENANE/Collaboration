@@ -17,7 +17,7 @@ const Hero = ({ children }) => {
                 <Overlay />
 
                 <p
-                    className='text-lg'
+                    className='text-6xl text-white font-black bg-black py-8 px-16'
                 >
                     Help Us Help You
                 </p>

@@ -26,14 +26,14 @@ const Routers = createBrowserRouter([
         ],
     },
     {
-        element: <ProtectedLayout />,
-        children: [
+        // element: <ProtectedLayout />,
+        // children: [
 
-            {
-                path: "/profile",
-                element: <Profile />,
-            },
-        ],
+        //     {
+        //         path: "/profile",
+        //         element: <Profile />,
+        //     },
+        // ],
         path : "/organizer",
         element: <OrganizerLayout />,
         // children: [

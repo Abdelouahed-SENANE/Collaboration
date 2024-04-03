@@ -47,10 +47,19 @@ const Home = () => {
                     handleChange={handleQueryChange}
                 />
             </Hero>
+
             {loading ? (
-                <p>Loading...</p>
+                <p
+                    className='mx-auto'
+                >
+                    Loading...
+                </p>
             ) : error ? (
-                <p>{error}</p>
+                <p
+                    className='mx-auto'
+                >
+                    {error}
+                </p>
             ) : (
                 <ul>
                     {listings.map((listing) => (
