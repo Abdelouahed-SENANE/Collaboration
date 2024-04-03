@@ -2,7 +2,7 @@ import React from "react";
 import { FaExclamationCircle } from "react-icons/fa";
 
 const Input = ({
-    type,
+    type = 'text',
     handleChange,
     label,
     name,

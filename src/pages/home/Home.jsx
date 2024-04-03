@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { getListings } from '@data/listing/listingData'
 import Hero from '@/components/home/Hero'
-
+import Input from '@components/ui/Input'
 
 
 const Home = () => {
     const [listings, setListings] = useState([])
-    const [query, setQuery] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -14,31 +13,35 @@ const Home = () => {
         setTimeout(() => setLoading(false), 1000)
     }
 
-    useEffect(() => {
-            const fetchListingsList = async () => {
-                const listingData = await getListings()
-                setListings(listingData)
-            }
-            
-            fetchListingsList()
-            load()
-            
+    const fetchListingsList = (query) => {
+        const fetch = async () => {
+            const listingData = await getListings(query)
+            setListings(listingData)
+        }
+        
+        fetch()
+        load()
 
-            fetchListingsList().catch(() => {
-                load()
-                setError('An error occured while fetching the data')
-            })
+        fetch().catch(() => {
+            load()
+            setError('An error occured while fetching the data')
+        })
+    }
+
+    useEffect(() => {
+        fetchListingsList()
     }, []);
 
     const handleQueryChange = (e) => {
         const value = e.target.value
-
-        
+        fetchListingsList(value)
     }
     
     return (
         <>
-            <Hero query={query} onQueryChange={handleQueryChange}/>
+            <Hero>
+                <Input handleChange={handleQueryChange}/>
+            </Hero>
             {loading ? (
                 <p>Loading...</p>
             ) : error ? (

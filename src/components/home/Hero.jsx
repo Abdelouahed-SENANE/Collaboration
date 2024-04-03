@@ -1,19 +1,22 @@
 import React from 'react'
+import Overlay from '@components/ui/Overlay'
+import heroImage from '@/assets/hero.jpg'
 
-const Hero = ({query, onQueryChange}) => {
+const Hero = ({ children }) => {
     return (
         <section
-            className='w-full p-8 m-4'
+            className='w-full p-8 m-4 z-10'
         >
             <div
-                className='p-8 rounded bg-black text-white flex items-center justify-center'
+                className='relative border-2 border-black p-8 rounded-lg bg-cover bg-center flex items-center justify-center'
+                style={{
+                    height: '40vh',
+                    backgroundImage: `url(${heroImage})`
+                }}
             >
-                <input
-                    type="text"
-                    value={query}
-                    onChange={onQueryChange}
-                    placeholder="Type something..."
-                />
+                <Overlay />
+                
+                { children }
             </div>
         </section>
     )
