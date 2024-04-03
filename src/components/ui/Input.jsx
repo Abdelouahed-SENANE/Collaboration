@@ -2,17 +2,18 @@ import React from "react";
 import { FaExclamationCircle } from "react-icons/fa";
 
 const Input = ({
-    type,
+    type = 'text',
     handleChange,
     label,
     name,
     placeholder,
     classInput,
+    divStyle,
     handleKeyDown,
     error,
 }) => {
     return (
-        <div className="my-2">
+        <div style={divStyle} className="my-2">
             <label className="mx-1 text-gray-700">{label}</label>
             <input
                 type={type}

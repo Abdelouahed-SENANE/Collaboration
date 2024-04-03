@@ -8,6 +8,8 @@ import Profile from "@pages/profile/Profile";
 
 import OrganizerLayout from "@layouts/organizer/OrganizerLayout.jsx";
 
+import HomeLayout from '@/layouts/home/HomeLayout'
+import Home from '@/pages/home/Home'
 
 const Routers = createBrowserRouter([
     {
@@ -24,14 +26,14 @@ const Routers = createBrowserRouter([
         ],
     },
     {
-        element: <ProtectedLayout />,
-        children: [
+        // element: <ProtectedLayout />,
+        // children: [
 
-            {
-                path: "/profile",
-                element: <Profile />,
-            },
-        ],
+        //     {
+        //         path: "/profile",
+        //         element: <Profile />,
+        //     },
+        // ],
         path : "/organizer",
         element: <OrganizerLayout />,
         // children: [
@@ -43,6 +45,15 @@ const Routers = createBrowserRouter([
         //         element: <OrganizerLayout  mainVue="update"/>,
         //     },
         // ],
+    },
+    {
+        element: <HomeLayout />,
+        children: [
+            {
+                path: "/",
+                element: <Home />,
+            },
+        ],
     },
 ]);
 
