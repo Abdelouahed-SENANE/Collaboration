@@ -59,12 +59,7 @@ const Registre = () => {
         e.preventDefault();
         console.log(formData);
     };
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            [name]: value,
-        });
-    };
+
     console.log(formData);
     return (
         <div className="min-h-[90vh] flex items-center w-full justify-center bg-slate-50">
