@@ -3,7 +3,6 @@ import { getListings } from '@data/listing/listingData'
 import Hero from '@/components/home/Hero'
 import Input from '@components/ui/Input'
 
-
 const Home = () => {
     const [listings, setListings] = useState([])
     const [loading, setLoading] = useState(true)
@@ -40,7 +39,13 @@ const Home = () => {
     return (
         <>
             <Hero>
-                <Input handleChange={handleQueryChange}/>
+                <Input 
+                    classInput='border-2 border-black h-10 w-full'
+                    divStyle={{
+                        width: '80%'
+                    }}
+                    handleChange={handleQueryChange}
+                />
             </Hero>
             {loading ? (
                 <p>Loading...</p>

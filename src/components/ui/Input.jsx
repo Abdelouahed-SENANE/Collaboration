@@ -8,11 +8,12 @@ const Input = ({
     name,
     placeholder,
     classInput,
+    divStyle,
     handleKeyDown,
     error,
 }) => {
     return (
-        <div className="my-2">
+        <div divStyle={style} className="my-2">
             <label className="mx-1 text-gray-700">{label}</label>
             <input
                 type={type}
