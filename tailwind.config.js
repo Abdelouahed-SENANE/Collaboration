@@ -9,7 +9,13 @@ export default {
       colors : {
         'primary' : '#2C1320',
         'secondary' : '#5F4B66',
-        'third' : '#A7ADC6'
+        'third' : '#A7ADC6',
+        'pink' : '#77176e',
+        'secPink' : '#c83fa9',
+        'background' : '#FEF2F4',
+        'gray' : '#A9A9A9',
+        'green' : '#74E291',
+        'red' : '#FF204E'
       }
     },
   },
