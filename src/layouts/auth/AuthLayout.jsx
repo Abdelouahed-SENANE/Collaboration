@@ -3,11 +3,11 @@ import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "@components/navbar/Navbar";
 import { useAuth } from "@contexts/AuthContext";
 const AuthLayout = () => {
-    const { token } = useAuth();
+    const { token, user } = useAuth();
     // Redirect User is  Already Login
-    // if (token) {
-    //     return <Navigate to={"/profile"} />;
-    // }
+    if (token) {
+        return <Navigate to={"/profile"} />;
+    }
 
     return (
         <>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
+import { FaExclamationCircle } from "react-icons/fa";
 
-const InputMultiValues = ({ data, handleChange, handleRemove }) => {
+const InputMultiValues = ({ data, handleChange, handleRemove, error }) => {
     return (
         <>
             <label className="mx-1 mt-2 text-gray-700">Competences</label>
@@ -30,6 +31,12 @@ const InputMultiValues = ({ data, handleChange, handleRemove }) => {
                     className={"outline-none text-sm block"}
                 />
             </div>
+            {error && (
+                <p className="text-red text-sm font-medium flex gap-1 items-center">
+                    <FaExclamationCircle />
+                    {error}
+                </p>
+            )}
         </>
     );
 };

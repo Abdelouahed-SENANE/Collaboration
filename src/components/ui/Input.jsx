@@ -2,7 +2,7 @@ import React from "react";
 import { FaExclamationCircle } from "react-icons/fa";
 
 const Input = ({
-    type = 'text',
+    type = "text",
     handleChange,
     label,
     name,
@@ -24,7 +24,7 @@ const Input = ({
                 onChange={handleChange}
             />
             {error && (
-                <p className="text-red-500 text-sm font-medium flex gap-1 items-center">
+                <p className="text-red text-sm font-medium flex gap-1 items-center">
                     <FaExclamationCircle />
                     {error}
                 </p>
