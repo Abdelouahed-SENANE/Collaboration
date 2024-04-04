@@ -1,12 +1,12 @@
 import React from 'react'
-import Overlay from '@components/ui/Overlay'
+import Shadow from '../ui/shadow/Shadow'
+import ShadowWrapper from '../ui/shadow/ShadowWrapper'
 import heroImage from '@/assets/hero.jpg'
+import Sticker from '@components/ui/Sticker'
 
 const Hero = ({ children }) => {
     return (
-        <section
-            className='w-full p-8 m-4 z-10'
-        >
+        <ShadowWrapper classes='w-full px-8 pt-8'>
             <div
                 className='relative border-2 border-black p-8 rounded-lg bg-cover bg-center flex flex-col items-center justify-center'
                 style={{
@@ -14,17 +14,15 @@ const Hero = ({ children }) => {
                     backgroundImage: `url(${heroImage})`
                 }}
             >
-                <Overlay />
+                <Shadow />
 
-                <p
-                    className='text-6xl text-white font-black bg-black py-8 px-16'
-                >
+                <Sticker classes='bg-black'>
                     Help Us Help You
-                </p>
+                </Sticker>
 
                 { children }
             </div>
-        </section>
+        </ShadowWrapper>
     )
 }
 
