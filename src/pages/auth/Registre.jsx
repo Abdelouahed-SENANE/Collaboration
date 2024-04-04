@@ -3,9 +3,12 @@ import Form from "@components/ui/Form";
 import Input from "@components/ui/Input";
 import Button from "@components/ui/button/Button";
 import InputMultiValues from "@components/ui/InputMultiValues";
-
+import instance from "../../services/api/api";
+import { useAuth } from "../../hooks/contexts/AuthContext";
 const Registre = () => {
     const [currentButton, setCurrentButton] = useState(false);
+    const { setToken, token, user, setUser } = useAuth();
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -13,6 +16,13 @@ const Registre = () => {
         role: "volunteer",
         competences: [],
     });
+    const [errors, setErrors] = useState({
+        name: "",
+        email: "",
+        password: "",
+        competences: "",
+    });
+
     const handleRemoveCompetences = (index) => {
         const updatedCompetences = formData.competences.filter(
             (_, i) => i !== index
@@ -55,12 +65,56 @@ const Registre = () => {
             role: "volunteer",
         });
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        setErrors({
+            name: "",
+            email: "",
+            password: "",
+            competences: "",
+        });
+        try {
+            const response = await instance.post("/register", formData);
+
+            if (response.status) {
+                if (response.data.status) {
+                    setToken(response.data.authorization.token);
+                    setUser(response.data.user);
+                } else {
+                    if (response.data.data.name) {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            name: response.data.data.name[0],
+                        }));
+                    }
+                    if (response.data.data.email) {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            email: response.data.data.email[0],
+                        }));
+                    }
+                    if (response.data.data.password) {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            password: response.data.data.password[0],
+                        }));
+                    }
+                    if (
+                        formData.role === "volunteer" &&
+                        response.data.data.competences
+                    ) {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            competences: response.data.data.competences[0],
+                        }));
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+        }
     };
 
-    console.log(formData);
     return (
         <div className="min-h-[90vh] flex items-center w-full justify-center bg-slate-50">
             <Form handleSubmit={handleSubmit}>
@@ -104,7 +158,7 @@ const Registre = () => {
                         "text-sm px-3 text-slate-700  py-2 outline-none block w-full mt-1 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md  border-2"
                     }
                     placeholder={"Name"}
-                    error={""}
+                    error={errors.name}
                 />
                 <Input
                     label={"Email"}
@@ -120,7 +174,7 @@ const Registre = () => {
                         "text-sm px-3 text-slate-700  py-2 outline-none block w-full mt-1 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md  border-2"
                     }
                     placeholder={"Email"}
-                    error={""}
+                    error={errors.email}
                 />
 
                 <Input
@@ -138,13 +192,14 @@ const Registre = () => {
                         "text-sm px-3  text-slate-700 py-2 outline-none block w-full mt-1 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md  border-2"
                     }
                     placeholder={"Password"}
-                    error={""}
+                    error={errors.password}
                 />
                 {!currentButton && (
                     <InputMultiValues
                         data={formData.competences}
                         handleChange={handleCompetenceChange}
                         handleRemove={handleRemoveCompetences}
+                        error={errors.competences}
                     />
                 )}
 
