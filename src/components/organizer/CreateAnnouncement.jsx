@@ -1,6 +1,7 @@
 import InputMultiValues from "@components/ui/InputMultiValues";
 import Input from "@components/ui/Input";
 import { useState } from "react";
+import { createListing } from "../../data/listing/listingService";
 const CreateAnnouncement = () => {
     const [formData, setFormData] = useState({
         title: "",
@@ -9,7 +10,7 @@ const CreateAnnouncement = () => {
         location: "",
         competences: [],
     });
-    const [errors, serFormErrors] = useState({
+    const [errors, setFormmErrors] = useState({
         title: "",
         description: "",
         date: "",
@@ -43,9 +44,23 @@ const CreateAnnouncement = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        const response = await createListing(formData)
+            .then((response) => {
+                if (!response.ok) {
+                    console.error("Connetion problem");
+                }
+                return response;
+            })
+            .then((json) => {
+                console.log(json);
+            })
+            .catch((error) => {
+                if (error.response.status === 422) {
+                    setFormmErrors(error.response.data.errors);
+                }
+            });
     };
-
+    console.log(errors);
     return (
         <form
             onSubmit={handleSubmit}
@@ -57,7 +72,7 @@ const CreateAnnouncement = () => {
                     handleChange={(e) =>
                         setFormData({
                             ...formData,
-                            name: e.target.value,
+                            title: e.target.value,
                         })
                     }
                     value={formData.title}
@@ -125,6 +140,7 @@ const CreateAnnouncement = () => {
                     data={formData.competences}
                     handleChange={handleCompetenceChange}
                     handleRemove={handleRemoveCompetences}
+                    error={errors.competences}
                 />
             </div>
             <button className="px-[0.5rem] py-[0.4rem] rounded-lg w-[25%] bg-pink text-white font-medium mt-[1rem]">
