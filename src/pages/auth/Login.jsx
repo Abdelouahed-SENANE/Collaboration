@@ -4,20 +4,12 @@ import Input from "@components/ui/Input";
 import Button from "@components/ui/button/Button";
 import { useAuth } from "@contexts/AuthContext";
 import instance from "../../services/api/api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
-    const { setToken, token } = useAuth();
-    const navigate = useNavigate();
-
-    // const handleLogin = () => {
-    //     setToken("new token")
-    // };
-
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-    });
+    const { setToken, token, user, setUser } = useAuth();
+    const [pwdErr, setErrPwd] = useState("");
+    const [emailErr, setErrEmail] = useState("");
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -30,39 +22,32 @@ const Login = () => {
             [name]: value,
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const resp = await instance.post('/login', formData);
-            // If login is successful, set token and navigate to profile page
-            if (resp.status === 200) {
-                setToken(resp.data.token); // Assuming your API returns a token upon successful login
-                navigate('/profile');
+            const response = await instance.post("/login", formData);
+            if (response.status === 200) {
+                if (response.data.status) {
+                    setToken(response.data.authorization.token);
+                    setUser(response.data.user);
+                } else {
+                    if (response.data.data.email) {
+                        setErrEmail(response.data.data.email[0]);
+                    } else {
+                        setErrEmail("");
+                    }
+                    if (response.data.data.password) {
+                        setErrPwd(response.data.data.password[0]);
+                    } else {
+                        setErrPwd("");
+                    }
+                }
             }
         } catch (error) {
-            if (error.response) {
-                // If the response status is 422, set error messages from the server
-                if (error.response.status === 422) {
-                    const serverErrors = error.response.data.errors;
-                    const formattedErrors = {};
-                    for (const key in serverErrors) {
-                        formattedErrors[key] = serverErrors[key][0]; // Assuming only one error message per field
-                    }
-                    setErrors(formattedErrors);
-                } else if (error.response.status === 401) {
-                    // Handle 401 Unauthorized error (invalid credentials)
-                    setErrors({ ...errors, email: "Invalid email or password" });
-                } else {
-                    // Handle other server errors here
-                    console.error("Server Error:", error.response.data);
-                }
-            } else {
-                // Handle network errors
-                console.error("Network Error:", error.message);
-            }
+            console.error("Error during login:", error);
         }
     };
-
     return (
         <>
             <div className="min-h-[90vh] flex items-center w-full justify-center bg-slate-50">
@@ -77,7 +62,7 @@ const Login = () => {
                             "text-sm px-3 text-slate-700  py-2 outline-none block w-full mt-1 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md  border-2"
                         }
                         placeholder={"Email"}
-                        error={""}
+                        error={emailErr}
                     />
 
                     <Input
@@ -90,7 +75,7 @@ const Login = () => {
                             "text-sm px-3  text-slate-700 py-2 outline-none block w-full mt-1 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md  border-2"
                         }
                         placeholder={"Password"}
-                        error={""}
+                        error={pwdErr}
                     />
                     <Button
                         type={"submit"}
