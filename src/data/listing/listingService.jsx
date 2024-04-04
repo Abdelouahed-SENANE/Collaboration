@@ -10,3 +10,12 @@ export const fetchListings = async (query, page) => {
         throw error
     }
 }
+export const createListing = async (listingObject) => {
+    try {
+        const response = await instance.post('listings' , listingObject)
+        return response
+    } catch (error) {
+        console.log("Error fetching listings:", error)
+        throw error
+    }
+}

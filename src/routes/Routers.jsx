@@ -32,8 +32,7 @@ const Routers = createBrowserRouter([
         //         element: <Profile />,
         //     },
         // ],
-        path: "/organizer",
-        element: <OrganizerLayout />,
+
 
         // children: [
         //     {
@@ -51,6 +50,10 @@ const Routers = createBrowserRouter([
             {
                 path: "/profile",
                 element: <Profile />,
+            },
+            {
+                path: "/dashboard",
+                element: <OrganizerLayout />,
             },
         ],
     },

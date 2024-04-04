@@ -63,14 +63,23 @@ const Navbar = () => {
                                     </Link>
                                 </>
                             )}
-                            {user &&  (
+                            {user && (
                                 <>
                                     <div className="relative flex items-center show__dropdown">
                                         <FaRegUserCircle className="text-3xl cursor-pointer block text-primary" />
                                         <div className="mx-2">{user.name}</div>
 
                                         <ul className="absolute  top-[110%] right-0  min-w-[200px] z-50  dropdown  shadow rounded-md bg-white p-5">
-                                            <li>
+                                            {user.organizer && (
+                                                <li className="my-2">
+                                                    <Link
+                                                        to={"/dashboard"}
+                                                    >
+                                                        Dashboard
+                                                    </Link>
+                                                </li>
+                                            )}
+                                            <li className="my-2">
                                                 <a
                                                     href="#"
                                                     onClick={handleLogout}
