@@ -14,7 +14,7 @@ const Input = ({
 }) => {
     return (
         <div style={divStyle} className="my-2">
-            <label className="mx-1 text-gray-700">{label}</label>
+            {label && <label className="mx-1 text-gray-700">{label}</label>}
             <input
                 type={type}
                 className={classInput}

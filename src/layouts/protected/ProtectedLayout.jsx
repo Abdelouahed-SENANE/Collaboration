@@ -5,11 +5,12 @@ import { useAuth } from "@contexts/AuthContext";
 import { getUser } from "@/data/user/UserData";
 
 const ProtectedLayout = () => {
-    const { token, user, setUser } = useAuth();
+    const { token, user } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     if (!token) {
         return <Navigate to={"/login"} />;
     }
+
     const loading = () => {
         setTimeout(() => {
             setIsLoading(false);
@@ -17,47 +18,7 @@ const ProtectedLayout = () => {
     };
     loading();
 
-    // const fetchUserData = async () => {
-    //     try {
-    //         const resp = await getUser();
-    //         setUser(resp);
-    //         loading();
-    //     } catch (error) {
-    //         if (error.response && error.response.status === 401) {
-    //             console.log(
-    //                 "User not authenticated. Redirecting to login page..."
-    //             );
-    //         } else {
-    //             console.error("Error fetching user data:", error);
-    //         }
-    //         loading();
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchUserData();
-    // }, []);
-    // useEffect(() => {
-    //     const fetchUserData = async () => {
-    //         try {
-    //             const userData = await getUser();
-    //             setUser(userData);
-    //             console.log(user);
-    //         } catch (error) {
-    //             if (error.response && error.response.status === 401) {
-    //                 console.log(
-    //                     "User not authenticated. Redirecting to login page..."
-    //                 );
-    //             } else {
-    //                 console.error("Error fetching user data:", error);
-    //             }
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     };
-
-    //     fetchUserData();
-    // }, [setUser]);
+    
     return (
         <>
             {isLoading ? (

@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaExclamationCircle } from "react-icons/fa";
 
-const InputMultiValues = ({ data, handleChange, handleRemove, error }) => {
+const InputMultiValues = ({
+    data,
+    handleChange,
+    handleRemove,
+    error,
+    label,
+}) => {
     return (
         <>
-            <label className="mx-1 mt-2 text-gray-700">Competences</label>
-            <div className="border-2 flex mt-1 items-start px-3  py-2  border-slate-200 flex-wrap rounded-md max-w-[600px]">
+            {label && (
+                <label className="mx-1 mt-2 text-gray-700">{label}</label>
+            )}
+            <div className="border-2 flex mt-1 items-start px-3 focus:border-secondary focus:ring-4 focus:ring-primary/10 transition-all rounded-md   py-2 bg-white flex-wrap max-w-[600px]">
                 <ul className="inline-flex gap-0.5 w-full flex-wrap h-full">
                     {data.map((competence, index) => {
                         return (
@@ -28,7 +36,7 @@ const InputMultiValues = ({ data, handleChange, handleRemove, error }) => {
                 <input
                     placeholder={"Enter competences"}
                     onKeyDown={handleChange}
-                    className={"outline-none text-sm block"}
+                    className={"outline-none text-sm  bg-transparent"}
                 />
             </div>
             {error && (

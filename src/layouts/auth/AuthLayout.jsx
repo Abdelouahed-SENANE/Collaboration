@@ -6,7 +6,7 @@ const AuthLayout = () => {
     const { token, user } = useAuth();
     // Redirect User is  Already Login
     if (token) {
-        return <Navigate to={"/profile"} />;
+        return <Navigate to={"/"} />;
     }
 
     return (

@@ -196,6 +196,7 @@ const Registre = () => {
                 />
                 {!currentButton && (
                     <InputMultiValues
+                    label={competences}
                         data={formData.competences}
                         handleChange={handleCompetenceChange}
                         handleRemove={handleRemoveCompetences}

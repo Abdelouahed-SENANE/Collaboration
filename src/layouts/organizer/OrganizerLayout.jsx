@@ -1,29 +1,37 @@
-
-import OrganizerHeader from "../../components/organizer/OrganizerHeader.jsx";
 import VueChoice from "../../components/organizer/VueChoice.jsx";
-import {useState} from "react";
+import { useState } from "react";
 import Content from "../../components/organizer/Content.jsx";
+import { useAuth } from "../../hooks/contexts/AuthContext.jsx";
+import { Navigate } from "react-router-dom";
 
 const OrganizerLayout = () => {
-    const [vue,setVue] = useState('announcements');
+    const { user } = useAuth();
+    if (!user.organizer) {
+        return <Navigate to={"/"} />;
+    }
+    const [vue, setVue] = useState("announcements");
 
-    function setApplicationsAsMainVue(){
-        setVue('applications');
+    function setApplicationsAsMainVue() {
+        setVue("applications");
     }
-    function setAnnouncementsAsMainVue(){
-        setVue('announcements');
+    function setAnnouncementsAsMainVue() {
+        setVue("announcements");
     }
-    function setCreateAnnouncementAsMainVue(){
-        setVue('create');
+    function setCreateAnnouncementAsMainVue() {
+        setVue("create");
     }
 
-    return(
+    return (
         <>
-            <OrganizerHeader/>
-            <VueChoice setApplicationsAsMainVue={setApplicationsAsMainVue} setAnnouncementsAsMainVue={setAnnouncementsAsMainVue} setCreateAnnouncementAsMainVue={setCreateAnnouncementAsMainVue} activeView={vue}/>
-            <Content activeVue={vue}/>
+            <VueChoice
+                setApplicationsAsMainVue={setApplicationsAsMainVue}
+                setAnnouncementsAsMainVue={setAnnouncementsAsMainVue}
+                setCreateAnnouncementAsMainVue={setCreateAnnouncementAsMainVue}
+                activeView={vue}
+            />
+            <Content activeVue={vue} />
         </>
-    )
-}
+    );
+};
 
 export default OrganizerLayout;
