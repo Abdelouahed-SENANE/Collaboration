@@ -8,6 +8,7 @@ import Pagination from '@components/ui/Pagination'
 import Spinner from '@components/ui/spinner/Spinner'
 import Sticker from '@components/ui/Sticker'
 import ListingsWrapper from '../../components/home/ListingsWrapper'
+import Seperator from '../../components/ui/Seperator'
 
 const Home = () => {
     const [listings, setListings] = useState([])
@@ -57,7 +58,7 @@ const Home = () => {
     
     return (
         <>
-            <Hero>
+            <Hero classes>
                 <Input 
                     classInput='border-2 border-black h-10 w-full rounded shadow-lg p-4'
                     divStyle={{
@@ -66,6 +67,8 @@ const Home = () => {
                     handleChange={handleQueryChange}
                 />
             </Hero>
+
+            <Seperator />
 
             <ListingsWrapper classes='bg-secondary'>
 
@@ -106,7 +109,7 @@ const Home = () => {
                     )}
                 </div>
 
-                <Sticker />
+                {/* <Sticker /> */}
             </ListingsWrapper>
 
         </>

@@ -15,7 +15,7 @@ const Pagination = ({ pages, page, onPageChange }) => {
     }
 
     return (
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center pt-10'>
             {[...Array(pageCount)].map((x, i) => (
                 <Button
                     dataId={i+1}
