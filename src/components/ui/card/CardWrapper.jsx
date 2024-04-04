@@ -1,14 +1,11 @@
 import React from 'react'
 
-const CardWrapper = ({ links, children }) => {
-    const activeLink = links.find((e) => e.active)
+const CardWrapper = ({ children }) => {
     return (
         <div
-            className='w-full p-8 m-4 grid grid-cols-4 gap-8'
+            className='w-full p-8 my-4 flex flex-wrap items-center justify-center gap-10'
         >
             { children }
-
-            <p>{ activeLink.label }</p>
         </div>
     )
 }

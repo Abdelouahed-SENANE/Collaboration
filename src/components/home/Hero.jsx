@@ -1,6 +1,7 @@
 import React from 'react'
-import Overlay from '@components/ui/Overlay'
+import Shadow from '@components/ui/Shadow'
 import heroImage from '@/assets/hero.jpg'
+import Sticker from '@components/ui/Sticker'
 
 const Hero = ({ children }) => {
     return (
@@ -14,13 +15,11 @@ const Hero = ({ children }) => {
                     backgroundImage: `url(${heroImage})`
                 }}
             >
-                <Overlay />
+                <Shadow />
 
-                <p
-                    className='text-6xl text-white font-black bg-black py-8 px-16'
-                >
+                <Sticker classes='bg-black'>
                     Help Us Help You
-                </p>
+                </Sticker>
 
                 { children }
             </div>
