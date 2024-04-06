@@ -52,7 +52,7 @@ const Routers = createBrowserRouter([
                 element: <Profile />,
             },
             {
-                path: "/dashboard",
+                    path: "/dashboard",
                 element: <OrganizerLayout />,
             },
         ],

@@ -15,7 +15,9 @@ export default {
         'background' : '#FEF2F4',
         'gray' : '#A9A9A9',
         'green' : '#74E291',
-        'red' : '#FF204E'
+        'red' : '#FF204E',
+        'secGreen' : '#57cc99',
+        secRed : "#bf0603"
       }
     },
   },

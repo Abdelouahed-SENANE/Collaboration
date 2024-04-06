@@ -6,11 +6,11 @@ import { Navigate } from "react-router-dom";
 
 const OrganizerLayout = () => {
     const { user } = useAuth();
+    const [vue, setVue] = useState("announcements");
+
     if (!user.organizer) {
         return <Navigate to={"/"} />;
     }
-    const [vue, setVue] = useState("announcements");
-
     function setApplicationsAsMainVue() {
         setVue("applications");
     }
@@ -20,6 +20,8 @@ const OrganizerLayout = () => {
     function setCreateAnnouncementAsMainVue() {
         setVue("create");
     }
+
+
 
     return (
         <>

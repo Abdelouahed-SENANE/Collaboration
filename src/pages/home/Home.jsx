@@ -77,7 +77,7 @@ const Home = () => {
                     {loading ? (
                         <Spinner />
                     ) : error ? (
-                        // show errors
+
                         <p className="text-center">{error}</p>
                     ) : listings.length > 0 ? (
                         <>
