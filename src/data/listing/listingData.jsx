@@ -1,4 +1,4 @@
-import { fetchListings } from './listingService'
+import {fetchListings, fetchSpecificListing} from './listingService'
 
 export const getListings = async (query = '', page = '1', ) => {
     try {
@@ -9,5 +9,12 @@ export const getListings = async (query = '', page = '1', ) => {
         }
     } catch (error) {
         throw error
+    }
+}
+
+export const getListing = async (id) => {
+    const res = await fetchSpecificListing(id);
+    return{
+        'listing' : res.data.listing
     }
 }
