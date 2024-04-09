@@ -14,3 +14,13 @@ export const serviceFetchUser = async () => {
         }
     }
 };
+
+export const updateUser = async (data) => {
+    console.log(data)
+    try {
+        const response = await instance.put("/user/update", data);
+        return response;
+    } catch (error) {
+        throw error
+    }
+};
